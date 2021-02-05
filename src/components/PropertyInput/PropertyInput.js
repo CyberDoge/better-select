@@ -1,4 +1,6 @@
 import {
+  Button,
+  CrossIcon,
   HeartBrokenIcon,
   HeartIcon,
   InfoSignIcon,
@@ -9,7 +11,7 @@ import React from "react";
 import "./PropertyInput.sass";
 import { ADVANTAGE, DISADVANTAGE, NOTICE } from "./PropertyInputTypes";
 
-const PropertyInput = ({ type }) => {
+const PropertyInput = ({ type, onDelete }) => {
   const getIcon = () => {
     switch (type) {
       case ADVANTAGE:
@@ -23,7 +25,10 @@ const PropertyInput = ({ type }) => {
   return (
     <Pane className="container">
       {getIcon()}
-      <TextInput placeholder={type} />
+      <TextInput className={"input"} placeholder={type} />
+      <Button marginLeft={4} padding={8} appearance="minimal">
+        <CrossIcon onClick={onDelete} />
+      </Button>
     </Pane>
   );
 };

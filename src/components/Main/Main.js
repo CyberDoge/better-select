@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import PropertyInput from "../PropertyInput/PropertyInput";
-import {
-  ADVANTAGE,
-  DISADVANTAGE,
-  NOTICE,
-} from "../PropertyInput/PropertyInputTypes";
+import { Column } from "../Column/Column";
+import PropertyInput from "../PropertyInput";
+import { PropertyInputTypes } from "../PropertyInput";
 
+const tmp = [
+  <PropertyInput type={PropertyInputTypes.ADVANTAGE} />,
+  <PropertyInput type={PropertyInputTypes.DISADVANTAGE} />,
+  <PropertyInput type={PropertyInputTypes.NOTICE} />,
+];
 class Main extends Component {
   render() {
     return (
       <div>
-        <PropertyInput type={ADVANTAGE} />
-        <PropertyInput type={DISADVANTAGE} />
-        <PropertyInput type={NOTICE} />
+        <Column columnName="first" inputs={tmp}></Column>
       </div>
     );
   }
