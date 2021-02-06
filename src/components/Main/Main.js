@@ -1,21 +1,30 @@
-import React, { Component } from "react";
-import { Column } from "../Column/Column";
-import PropertyInput from "../PropertyInput";
-import { PropertyInputTypes } from "../PropertyInput";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addInput } from "../../state/column/columnActionCreators";
+import { addPropertyInput } from "../../state/propertyInput/propertyInputCreators";
+import Column from "../Column";
 
-const tmp = [
-  <PropertyInput type={PropertyInputTypes.ADVANTAGE} />,
-  <PropertyInput type={PropertyInputTypes.DISADVANTAGE} />,
-  <PropertyInput type={PropertyInputTypes.NOTICE} />,
-];
-class Main extends Component {
-  render() {
-    return (
-      <div>
-        <Column columnName="first" inputs={tmp}></Column>
-      </div>
-    );
-  }
-}
+const Main = () => {
+  const columns = useSelector((state) => state.columns);
+  const dispatch = useDispatch();
+  const addInputToColumn = (columnName) => () => {
+    const addInputAction = addPropertyInput();
+    const inputId = addInputAction.payload.id;
+    dispatch(addInput(columnName, inputId));
+    dispatch(addInputAction);
+  };
+  return (
+    <div>
+      {columns.map((column) => (
+        <Column
+          addInput={addInputToColumn(column.columnName)}
+          key={column.columnName}
+          columnName={column.columnName}
+          inputIds={column.inputIds}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default Main;

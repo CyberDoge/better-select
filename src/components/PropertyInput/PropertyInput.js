@@ -20,6 +20,8 @@ const PropertyInput = ({ type, onDelete }) => {
         return <HeartBrokenIcon color="danger" marginRight={16} />;
       case NOTICE:
         return <InfoSignIcon color="info" marginRight={16} />;
+      default:
+        return <InfoSignIcon color="info" marginRight={16} />;
     }
   };
   return (

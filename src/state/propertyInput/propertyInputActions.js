@@ -1,0 +1,1 @@
+export const ADD_INPUT = "propertyInput/ADD_INPUT"
