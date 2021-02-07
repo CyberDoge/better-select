@@ -10,14 +10,19 @@ export const Column = ({ inputIds = [], columnName, addInput }) => {
   );
   return (
     <div className="column">
-      {inputs.map((input, index) => (
-        <div key={`${columnName}-${index}`} className="item">
-          <PropertyInput type={input.type} />
+      {inputs.map(input=> (
+        <div key={`${columnName}-${input.id}`} className="item">
+          <PropertyInput inputId={input.id} type={input.type} />
         </div>
       ))}
       <div className="item">
-        <Button onClick={addInput} iconBefore={<PlusIcon />}>
-          Add
+        <Button
+          intent="success"
+          appearance={"primary"}
+          className={"addButton"}
+          onClick={addInput}
+        >
+          <PlusIcon />
         </Button>
       </div>
     </div>

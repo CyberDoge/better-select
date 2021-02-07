@@ -8,14 +8,25 @@ import {
   TextInput,
 } from "evergreen-ui";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changePropertyText } from "../../state/propertyInput/propertyInputCreators";
 import "./PropertyInput.sass";
 import { ADVANTAGE, DISADVANTAGE, NOTICE } from "./PropertyInputTypes";
 
-const PropertyInput = ({ type, onDelete }) => {
+const PropertyInput = ({ inputId, type, onDelete }) => {
+  const dispatch = useDispatch();
+  const value = useSelector(
+    (state) => state.propertyInputs.find((pi) => pi.id === inputId).text
+  );
+  const onChange = (event) => {
+    dispatch(changePropertyText(event.target.value, inputId));
+  };
   const getIcon = () => {
     switch (type) {
       case ADVANTAGE:
-        return <HeartIcon color="success" marginRight={16} />;
+        return (
+          <HeartIcon className="typeIcon" color="success" marginRight={16} />
+        );
       case DISADVANTAGE:
         return <HeartBrokenIcon color="danger" marginRight={16} />;
       case NOTICE:
@@ -27,7 +38,12 @@ const PropertyInput = ({ type, onDelete }) => {
   return (
     <Pane className="container">
       {getIcon()}
-      <TextInput className={"input"} placeholder={type} />
+      <TextInput
+        onChange={onChange}
+        value={value}
+        className={"input"}
+        placeholder={type}
+      />
       <Button marginLeft={4} padding={8} appearance="minimal">
         <CrossIcon onClick={onDelete} />
       </Button>
