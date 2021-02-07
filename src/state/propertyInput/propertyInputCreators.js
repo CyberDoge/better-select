@@ -16,7 +16,7 @@ export const changePropertyText = (text, inputId) => ({
   type: CHANGE_TEXT,
   payload: { text, inputId },
 });
-// todo first id, second value
+// todo first id second value
 export const changePropertyType = (type, inputId) => ({
   type: CHANGE_TYPE,
   payload: { type, inputId },
