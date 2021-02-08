@@ -42,7 +42,7 @@ const PropertyInput = ({ inputId, type }) => {
     };
     dispatch(changePropertyType(getNextType(), inputId));
   };
-  const [isView, setView] = useState(false);
+  const [isView, setView] = useState(Math.round(Math.random()));
   const getIcon = () => {
     switch (type) {
       case ADVANTAGE:
@@ -67,8 +67,6 @@ const PropertyInput = ({ inputId, type }) => {
       </Button>
       {isView ? (
         <Text
-          textAlign="left"
-          alignContent="center"
           className={"view"}
           onClick={() => setView(false)}
         >

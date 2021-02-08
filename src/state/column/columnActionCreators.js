@@ -1,13 +1,30 @@
-import { ADD_COLUMN, ADD_INPUT_TO_COLUMN } from "./columnActions";
+import {
+  ADD_COLUMN,
+  ADD_INPUT_TO_COLUMN,
+  CHANGE_NAME,
+  DELETE_COLUMN,
+} from "./columnActions";
 
-export const addInput = (columnName, inputId) => ({
+let nextId = 0;
+export const addInput = (columnId, inputId) => ({
   type: ADD_INPUT_TO_COLUMN,
   payload: {
-    columnName,
+    columnId,
     inputId,
   },
 });
 export const addColumn = (columnName) => ({
   type: ADD_COLUMN,
+  columnId: ++nextId,
   payload: columnName,
+});
+
+export const changeName = (columnId, columnName) => ({
+  type: CHANGE_NAME,
+  payload: { columnId, columnName },
+});
+
+export const deleteColumn = (columnId) => ({
+  type: DELETE_COLUMN,
+  payload: columnId,
 });

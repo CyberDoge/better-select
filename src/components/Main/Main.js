@@ -7,19 +7,20 @@ import Column from "../Column";
 const Main = () => {
   const columns = useSelector((state) => state.columns);
   const dispatch = useDispatch();
-  const addInputToColumn = (columnName) => () => {
+  const addInputToColumn = (columnId) => () => {
     const addInputAction = addPropertyInput();
     const inputId = addInputAction.payload.id;
-    dispatch(addInput(columnName, inputId));
+    dispatch(addInput(columnId, inputId));
     dispatch(addInputAction);
   };
   return (
     <div>
       {columns.map((column) => (
         <Column
-          addInput={addInputToColumn(column.columnName)}
-          key={column.columnName}
+          addInput={addInputToColumn(column.columnId)}
+          key={column.columnId}
           columnName={column.columnName}
+          columnId={column.columnId}
           inputIds={column.inputIds}
         />
       ))}
