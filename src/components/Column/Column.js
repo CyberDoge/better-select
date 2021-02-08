@@ -6,7 +6,7 @@ import {
   deleteColumn,
 } from "../../state/column/columnActionCreators";
 import PropertyInput from "../PropertyInput";
-import "./Column.sass";
+import styles from "./Column.module.sass";
 
 export const Column = ({ inputIds = [], columnName, columnId, addInput }) => {
   const inputs = useSelector((state) =>
@@ -21,21 +21,20 @@ export const Column = ({ inputIds = [], columnName, columnId, addInput }) => {
   };
   const [isView, setView] = useState(!!columnName);
   return (
-    <div className="column">
-      <div className="nameContainer">
+    <div className={styles.column}>
+      <div className={styles.nameContainer}>
         {isView ? (
           <Heading
             size={300}
             alignContent="center"
-            className={"nameView"}
+            className={styles.nameView}
             onClick={() => setView(false)}
           >
             {columnName}
           </Heading>
         ) : (
           <TextInput
-            className="nameInput"
-            width="100%"
+            className={styles.nameInput}
             onBlur={() => setView(true)}
             autoFocus
             onChange={onNameChange}
@@ -53,15 +52,15 @@ export const Column = ({ inputIds = [], columnName, columnId, addInput }) => {
         </Button>
       </div>
       {inputs.map((input) => (
-        <div key={`${columnId}-${input.id}`} className="item">
+        <div key={`${columnId}-${input.id}`} className={styles.item}>
           <PropertyInput inputId={input.id} type={input.type} />
         </div>
       ))}
-      <div className="item">
+      <div className={styles.item}>
         <Button
           intent="success"
           appearance={"primary"}
-          className={"addButton"}
+          className={styles.addButton}
           onClick={addInput}
         >
           <PlusIcon />

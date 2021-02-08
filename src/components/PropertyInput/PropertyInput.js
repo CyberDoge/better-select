@@ -15,7 +15,7 @@ import {
   changePropertyType,
   deleteProperty,
 } from "../../state/propertyInput/propertyInputCreators";
-import "./PropertyInput.sass";
+import styles from "./PropertyInput.module.sass";
 import { ADVANTAGE, DISADVANTAGE, NOTICE } from "./PropertyInputTypes";
 
 const PropertyInput = ({ inputId, type }) => {
@@ -42,7 +42,7 @@ const PropertyInput = ({ inputId, type }) => {
     };
     dispatch(changePropertyType(getNextType(), inputId));
   };
-  const [isView, setView] = useState(Math.round(Math.random()));
+  const [isView, setView] = useState(false);
   const getIcon = () => {
     switch (type) {
       case ADVANTAGE:
@@ -56,9 +56,9 @@ const PropertyInput = ({ inputId, type }) => {
     }
   };
   return (
-    <Pane className="container">
+    <Pane className={styles.container}>
       <Button
-        className="typeButton"
+        className={styles.typeButton}
         marginRight={6}
         onClick={changeType}
         appearance="minimal"
@@ -66,10 +66,7 @@ const PropertyInput = ({ inputId, type }) => {
         {getIcon()}
       </Button>
       {isView ? (
-        <Text
-          className={"view"}
-          onClick={() => setView(false)}
-        >
+        <Text className={styles.view} onClick={() => setView(false)}>
           &#8203;
           {value}
         </Text>
@@ -79,7 +76,7 @@ const PropertyInput = ({ inputId, type }) => {
           autoFocus
           onChange={onChange}
           value={value}
-          className={"input"}
+          className={styles.input}
           placeholder={type}
         />
       )}
