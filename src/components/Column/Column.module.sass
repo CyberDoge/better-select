@@ -9,7 +9,7 @@
         padding: 8px 0
         display: flex
         justify-content: center
-        margin-bottom: 24px
+        margin-bottom: 12px
         border-bottom: 1px solid #52575233
     .nameView
         align-content: center
@@ -24,7 +24,17 @@
         margin-bottom: 8px
         &:last-child
             margin-bottom: 0
-
-.addButton
+.controlContainer
+    display: flex
+    justify-content: center
+    align-items: center
+    border-top: 1px solid #52575233
+    padding-top: 12px
+.button
+    margin-left: 24px
     border-radius: 50%
     height: 48px
+.sortUp
+    transform: rotate(180deg)
+.compassIcon
+    transition: 0.5s

@@ -1,6 +1,15 @@
-import { Button, CrossIcon, Heading, PlusIcon, TextInput } from "evergreen-ui";
+import classNames from "classnames";
+import {
+  Button,
+  CompassIcon,
+  CrossIcon,
+  Heading,
+  PlusIcon,
+  TextInput,
+} from "evergreen-ui";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { DEFAULT, DOWN, UP } from "../../const/sortDirection";
 import {
   addInput,
   changeName,
@@ -8,11 +17,28 @@ import {
 } from "../../state/column/columnActionCreators";
 import { addPropertyInput } from "../../state/propertyInput/propertyInputCreators";
 import PropertyInput from "../PropertyInput";
+import { propertyInputTypesSort } from "../PropertyInput/PropertyInputTypes";
 import styles from "./Column.module.sass";
 
-export const Column = ({ inputIds = [], columnName, columnId }) => {
+export const Column = ({
+  inputIds = [],
+  columnName,
+  columnId,
+  sortDirection,
+  handleSortChanged,
+}) => {
   const inputs = useSelector((state) =>
-    state.propertyInputs.filter((input) => inputIds.includes(input.id))
+    state.propertyInputs
+      .filter((input) => inputIds.includes(input.id))
+      .sort((a, b) => {
+        if (sortDirection === DEFAULT) {
+          return a.id - b.id;
+        } else if (sortDirection === UP) {
+          return propertyInputTypesSort(a, b);
+        } else {
+          return -propertyInputTypesSort(a, b);
+        }
+      })
   );
   const dispatch = useDispatch();
   const onNameChange = (event) => {
@@ -65,11 +91,32 @@ export const Column = ({ inputIds = [], columnName, columnId }) => {
           <PropertyInput inputId={input.id} type={input.type} />
         </div>
       ))}
-      <div className={styles.item}>
+      <div className={classNames(styles.controlContainer, styles.item)}>
+        <Button
+          className={styles.button}
+          appearance={"minimal"}
+          onClick={() =>
+            handleSortChanged(
+              sortDirection === UP
+                ? DOWN
+                : sortDirection === DOWN
+                ? DEFAULT
+                : UP
+            )
+          }
+        >
+          <CompassIcon
+            className={classNames(
+              sortDirection === UP && styles.sortUp,
+              styles.compassIcon
+            )}
+            color={sortDirection === DEFAULT ? "muted" : "selected"}
+          />
+        </Button>
         <Button
           intent="success"
           appearance={"primary"}
-          className={styles.addButton}
+          className={styles.button}
           onClick={onAddInputClick}
         >
           <PlusIcon />

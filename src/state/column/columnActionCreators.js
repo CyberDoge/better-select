@@ -18,13 +18,10 @@ export const createColumn = () => ({
   payload: ++nextId,
 });
 
-export const changeName = (columnId, columnName) => {
-  console.log(columnId);
-  return {
-    type: CHANGE_NAME,
-    payload: { columnId, columnName },
-  };
-};
+export const changeName = (columnId, columnName) => ({
+  type: CHANGE_NAME,
+  payload: { columnId, columnName },
+});
 
 export const deleteColumn = (columnId) => ({
   type: DELETE_COLUMN,
