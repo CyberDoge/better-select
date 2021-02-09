@@ -2,11 +2,12 @@ import produce from "immer";
 import {
   ADD_INPUT_TO_COLUMN,
   CHANGE_NAME,
+  CREATE_COLUMN,
   DELETE_COLUMN,
 } from "./columnActions";
 
-// state = [{columnId: string, columnName: string, inputIds: [number]}]
-const initialState = [{ columnName: "test", columnId: 0, inputIds: [1] }];
+// state = [{columnId: number, columnName: string, inputIds: [number]}]
+const initialState = [];
 
 const columns = produce((draft, action) => {
   switch (action.type) {
@@ -22,9 +23,12 @@ const columns = produce((draft, action) => {
       break;
     case DELETE_COLUMN:
       draft.splice(
-        draft.indexOf((column) => column.columnId === action.payload),
+        draft.findIndex((column) => column.columnId === action.payload),
         1
       );
+      break;
+    case CREATE_COLUMN:
+      draft.push({ columnId: action.payload, columnName: "", inputIds: [] });
       break;
     default:
       break;

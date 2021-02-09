@@ -2,13 +2,15 @@ import { Button, CrossIcon, Heading, PlusIcon, TextInput } from "evergreen-ui";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addInput,
   changeName,
   deleteColumn,
 } from "../../state/column/columnActionCreators";
+import { addPropertyInput } from "../../state/propertyInput/propertyInputCreators";
 import PropertyInput from "../PropertyInput";
 import styles from "./Column.module.sass";
 
-export const Column = ({ inputIds = [], columnName, columnId, addInput }) => {
+export const Column = ({ inputIds = [], columnName, columnId }) => {
   const inputs = useSelector((state) =>
     state.propertyInputs.filter((input) => inputIds.includes(input.id))
   );
@@ -18,6 +20,12 @@ export const Column = ({ inputIds = [], columnName, columnId, addInput }) => {
   };
   const onDeleteColumn = () => {
     dispatch(deleteColumn(columnId));
+  };
+  const onAddInputClick = () => {
+    const addInputAction = addPropertyInput();
+    const inputId = addInputAction.payload.id;
+    dispatch(addInput(columnId, inputId));
+    dispatch(addInputAction);
   };
   const [isView, setView] = useState(!!columnName);
   return (
@@ -39,6 +47,7 @@ export const Column = ({ inputIds = [], columnName, columnId, addInput }) => {
             autoFocus
             onChange={onNameChange}
             value={columnName}
+            placeholder="column name"
           />
         )}
 
@@ -61,7 +70,7 @@ export const Column = ({ inputIds = [], columnName, columnId, addInput }) => {
           intent="success"
           appearance={"primary"}
           className={styles.addButton}
-          onClick={addInput}
+          onClick={onAddInputClick}
         >
           <PlusIcon />
         </Button>

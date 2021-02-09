@@ -1,8 +1,11 @@
 .container
+  flex-wrap: wrap
   display: flex
   width: 100%
   flex-direction: row
   .item
-    margin: 12px 8px
-    &:first-child,&:last-child
-      margin: 12px 0
+    margin: 8px
+    &:first-child
+      margin-left: 0
+    &:last-child
+      margin-right: 0

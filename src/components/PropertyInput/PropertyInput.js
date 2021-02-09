@@ -40,7 +40,7 @@ const PropertyInput = ({ inputId, type }) => {
           return ADVANTAGE;
       }
     };
-    dispatch(changePropertyType(getNextType(), inputId));
+    dispatch(changePropertyType(inputId, getNextType()));
   };
   const [isView, setView] = useState(false);
   const getIcon = () => {
