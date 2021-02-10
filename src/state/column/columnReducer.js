@@ -1,4 +1,6 @@
 import produce from "immer";
+import { COLUMNS_LOCAL_STORE_KEY } from "../../const/localStorageConsts";
+import { getObjectByKey, setObject } from "../../store/localStoreHelper";
 import {
   ADD_INPUT_TO_COLUMN,
   CHANGE_NAME,
@@ -7,7 +9,7 @@ import {
 } from "./columnActions";
 
 // state = [{columnId: number, columnName: string, inputIds: [number]}]
-const initialState = [];
+const initialState = getObjectByKey(COLUMNS_LOCAL_STORE_KEY) || [];
 
 const columns = produce((draft, action) => {
   switch (action.type) {
@@ -33,6 +35,7 @@ const columns = produce((draft, action) => {
     default:
       break;
   }
+  setObject(COLUMNS_LOCAL_STORE_KEY, draft);
 }, initialState);
 
 export default columns;

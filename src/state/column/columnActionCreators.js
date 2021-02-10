@@ -1,3 +1,5 @@
+import { COLUMNS_LOCAL_STORE_KEY } from "../../const/localStorageConsts";
+import { getObjectByKey } from "../../store/localStoreHelper";
 import {
   ADD_INPUT_TO_COLUMN,
   CHANGE_NAME,
@@ -5,7 +7,11 @@ import {
   DELETE_COLUMN,
 } from "./columnActions";
 
-let nextId = 0;
+const columns = getObjectByKey(COLUMNS_LOCAL_STORE_KEY);
+
+let nextId = columns
+  ? columns.reduce((a, b) => (a.columnId > b.columnId ? a : b)).columnId + 1
+  : 0;
 export const addInput = (columnId, inputId) => ({
   type: ADD_INPUT_TO_COLUMN,
   payload: {

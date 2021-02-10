@@ -1,4 +1,6 @@
 import { PropertyInputTypes } from "../../components/PropertyInput";
+import { PROPERTIES_LOCAL_STORE_KEY } from "../../const/localStorageConsts";
+import { getObjectByKey } from "../../store/localStoreHelper";
 import {
   ADD_INPUT,
   CHANGE_TEXT,
@@ -6,10 +8,14 @@ import {
   DELETE_PROPERTY,
 } from "./propertyInputActions";
 
-let lastId = 0;
+const properties = getObjectByKey(PROPERTIES_LOCAL_STORE_KEY);
+let nextId = properties
+  ? properties.reduce((a, b) => (a.id > b.id ? a : b)).id + 1
+  : 0;
+
 export const addPropertyInput = () => ({
   type: ADD_INPUT,
-  payload: { id: ++lastId, text: "", type: PropertyInputTypes.ADVANTAGE },
+  payload: { id: ++nextId, text: "", type: PropertyInputTypes.ADVANTAGE },
 });
 
 export const changePropertyText = (text, inputId) => ({

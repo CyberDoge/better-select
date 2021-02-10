@@ -1,4 +1,6 @@
 import produce from "immer";
+import { PROPERTIES_LOCAL_STORE_KEY } from "../../const/localStorageConsts";
+import { getObjectByKey, setObject } from "../../store/localStoreHelper";
 import {
   ADD_INPUT,
   CHANGE_TEXT,
@@ -6,7 +8,7 @@ import {
   DELETE_PROPERTY,
 } from "./propertyInputActions";
 
-const initialState = [];
+const initialState = getObjectByKey(PROPERTIES_LOCAL_STORE_KEY) || [];
 // [{id: number, type: string, text: string}]
 const propertyInputs = produce((draft, action) => {
   switch (action.type) {
@@ -37,6 +39,7 @@ const propertyInputs = produce((draft, action) => {
     default:
       break;
   }
+  setObject(PROPERTIES_LOCAL_STORE_KEY, draft);
 }, initialState);
 
 export default propertyInputs;
