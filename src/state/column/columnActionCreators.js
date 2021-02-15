@@ -9,7 +9,7 @@ import {
 
 const columns = getObjectByKey(COLUMNS_LOCAL_STORE_KEY);
 
-let nextId = columns
+let nextId = columns?.length
   ? columns.reduce((a, b) => (a.columnId > b.columnId ? a : b)).columnId + 1
   : 0;
 export const addInput = (columnId, inputId) => ({

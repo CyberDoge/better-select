@@ -9,7 +9,7 @@ import {
 } from "./propertyInputActions";
 
 const properties = getObjectByKey(PROPERTIES_LOCAL_STORE_KEY);
-let nextId = properties
+let nextId = properties?.length
   ? properties.reduce((a, b) => (a.id > b.id ? a : b)).id + 1
   : 0;
 

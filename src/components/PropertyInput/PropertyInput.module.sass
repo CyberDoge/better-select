@@ -1,9 +1,12 @@
-$inputAndViewWidth: 190px
 .container
   display: flex
   align-items: center
+  box-sizing: border-box
   input
-    width: $inputAndViewWidth
+    flex: 1
+    overflow-wrap: break-word
+    word-wrap: break-word
+    hyphens: auto
 .typeButton
   height: 48px
   border-radius: 50%
@@ -13,9 +16,11 @@ $inputAndViewWidth: 190px
     transition: all .2s ease-in-out
 
 .view
+  flex: 1
   padding: 0 10px
   line-height: 32px
   text-align: left
   align-content: center
-  width: $inputAndViewWidth
+  overflow-wrap: break-word
+  overflow: auto
   box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.1)
